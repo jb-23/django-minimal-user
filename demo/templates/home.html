@@ -1,0 +1,31 @@
+
+<nav>
+	{% if user.is_authenticated %}
+		<p>Logged in as "{{ user.username }}"
+		- <a href=/logout>Logout</a>
+	{% else %}
+		<form method=post action=/login>
+			<label for=username>Username:</label>
+			<input type=text name=username id=username>
+			<label for=password>Password:</label>
+			<input type=password name=password id=password>
+			<input type=submit value=Login>
+			{% csrf_token %}
+		</form>
+    {% if error %}
+      <p style="color: red;">Incorrect login details.
+    {% endif %}
+	{% endif %}
+</nav>
+
+<p>The above nav section displays either a login form or a logout link
+- the choice being made in the template by testing user.is_authenticated.
+
+<p>{{ viewmessage }}
+
+{% if userform %}
+	<p>The following form fields show the composition of the user model:
+	<ul>
+		{{ userform.as_ul }}
+	</ul>
+{% endif %}
